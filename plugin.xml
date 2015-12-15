@@ -66,13 +66,13 @@
         <!-- libs -->
         <source-file src="src/android/libs/BaiduLBS_Android.jar" target-dir="libs"/>
         <source-file src="src/android/libs/httpmime-4.1.2.jar" target-dir="libs"/>
-        <source-file src="src/android/armeabi/libapp_BaiduNaviApplib.so" target-dir="libs/armeabi"/>
-        <source-file src="src/android/armeabi/libapp_BaiduVIlib.so" target-dir="libs/armeabi"/>
-        <source-file src="src/android/armeabi/libbd_etts.so" target-dir="libs/armeabi"/>
-        <source-file src="src/android/armeabi/libbds.so" target-dir="libs/armeabi"/>
-        <source-file src="src/android/armeabi/libBDSpeechDecoder_V1.so" target-dir="libs/armeabi"/>
-        <source-file src="src/android/armeabi/libcurl.so" target-dir="libs/armeabi"/>
-        <source-file src="src/android/armeabi/libgnustl_shared.so" target-dir="libs/armeabi"/>
+        <source-file src="src/android/libs/armeabi/libapp_BaiduNaviApplib.so" target-dir="libs/armeabi"/>
+        <source-file src="src/android/libs/armeabi/libapp_BaiduVIlib.so" target-dir="libs/armeabi"/>
+        <source-file src="src/android/libs/armeabi/libbd_etts.so" target-dir="libs/armeabi"/>
+        <source-file src="src/android/libs/armeabi/libbds.so" target-dir="libs/armeabi"/>
+        <source-file src="src/android/libs/armeabi/libBDSpeechDecoder_V1.so" target-dir="libs/armeabi"/>
+        <source-file src="src/android/libs/armeabi/libcurl.so" target-dir="libs/armeabi"/>
+        <source-file src="src/android/libs/armeabi/libgnustl_shared.so" target-dir="libs/armeabi"/>
         <!-- assets -->
         <source-file src="src/android/assets/BaiduNaviSDK_3.0.png" target-dir="libs/assets"/>
         <source-file src="src/android/assets/BaiduNaviSDK_Resource_3.0.png" target-dir="libs/assets"/>
