@@ -17,7 +17,7 @@
     </engines>
 
     <js-module src="www/navigatorPlugin.js" name="NavigatorPlugin">
-            <clobbers target="baidNavigator"/>
+            <clobbers target="plugins.baidNavigator"/>
     </js-module>
 
     <!-- android -->
@@ -27,6 +27,7 @@
             <feature name="NavigatorPlugin">
                 <param name="android-package" value="cn.baidu.navigator.Navigator"/>
             </feature>
+            <param name="onload" value="true" />
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest">
@@ -58,6 +59,10 @@
            android:name="com.baidu.location.f"  
            android:enabled="true"  
            android:process=":remote" />
+            <activity android:name="cn.baidu.navigator.GuideActivity"
+                      android:exported="false">
+            
+            </activity>
        <meta-data android:name="com.baidu.lbsapi.API_KEY"  
             android:value="$API_KEY" />
             
@@ -77,5 +82,8 @@
         <source-file src="src/android/assets/BaiduNaviSDK_Resource_3.0.png" target-dir="assets"/>
         <source-file src="src/android/assets/channel" target-dir="assets"/>
           
+        <!--source code-->
+        <source-file src="GuideActivity.java" target-dir="src/cn/baidu/navigator"/>
+        <source-file src="Navigator.java" target-dir="src/cn/baidu/navigator"/>
     </platform>
 </plugin>

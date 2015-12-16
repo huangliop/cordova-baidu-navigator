@@ -1,0 +1,120 @@
+package cn.baidu.navigator;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
+
+import com.baidu.navisdk.adapter.BNRoutePlanNode;
+import com.baidu.navisdk.adapter.BaiduNaviManager;
+
+import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaInterface;
+import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CordovaWebView;
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.lang.Exception;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by HuangLi on 2015/12/16.
+ */
+public class Navigator extends CordovaPlugin {
+    private  static final String TAG="BaiduNavigator";
+    public static final String ROUTE_PLAN_NODE = "routePlanNode";
+
+    @Override
+    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
+        super.initialize(cordova, webView);
+        BaiduNaviManager.getInstance().init(cordova.getActivity(), getSdcardDir(), null, new BaiduNaviManager.NaviInitListener() {
+            @Override
+            public void onAuthResult(int i, String s) {
+                String m="";
+                if (0 == i) {
+                    m = "key校验成功!";
+                } else {
+                    m = "key校验失败, " + s;
+                }
+                Log.d(TAG,m);
+            }
+
+            @Override
+            public void initStart() {
+                Log.d(TAG,"Init Start.....");
+            }
+
+            @Override
+            public void initSuccess() {
+                Log.d(TAG,"Init Success");
+            }
+
+            @Override
+            public void initFailed() {
+                Log.d(TAG,"Init Failed");
+            }
+        },null);
+    }
+
+    @Override
+    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+        if(action.equals("startNavi")) {
+            double startLat, startLon, endLat, endLon;
+            String startAddress, endAddress;
+            try{
+                startLat = args.getDouble(0);
+                startLon = args.getDouble(1);
+                startAddress = args.getString(2);
+                endLat = args.getDouble(3);
+                endLon = args.getDouble(4);
+                endAddress = args.getString(5);
+            }catch (Exception e){
+                callbackContext.error("Parameters type error");
+                return true;
+            }
+
+            if (startAddress.equals("null")) startAddress = "";
+            if (endAddress.equals("null")) endAddress = "";
+
+            List<BNRoutePlanNode> list=new ArrayList<BNRoutePlanNode>();
+            BNRoutePlanNode sNode=new BNRoutePlanNode(startLon,startLat,startAddress,null ,BNRoutePlanNode.CoordinateType.BD09LL);
+            list.add(sNode);
+            list.add(new BNRoutePlanNode(endLon, endLat, endAddress, null, BNRoutePlanNode.CoordinateType.BD09LL));
+            BaiduNaviManager.getInstance().launchNavigator(cordova.getActivity(),list,1,true,new MyRoutePlanListener(sNode));
+
+        }
+        return super.execute(action, args, callbackContext);
+    }
+
+    private String getSdcardDir() {
+        if (Environment.getExternalStorageState().equalsIgnoreCase(
+                Environment.MEDIA_MOUNTED)) {
+            return Environment.getExternalStorageDirectory().toString();
+        }
+        return null;
+    }
+
+    public class MyRoutePlanListener implements BaiduNaviManager.RoutePlanListener {
+
+        private BNRoutePlanNode mBNRoutePlanNode = null;
+        public MyRoutePlanListener(BNRoutePlanNode node){
+            mBNRoutePlanNode = node;
+        }
+
+        @Override
+        public void onJumpToNavigator() {
+            Intent intent = new Intent(cordova.getActivity(), GuideActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(ROUTE_PLAN_NODE,mBNRoutePlanNode);
+            intent.putExtras(bundle);
+            cordova.getActivity().startActivity(intent);
+        }
+        @Override
+        public void onRoutePlanFailed() {
+            // TODO Auto-generated method stub
+
+        }
+    }
+}
