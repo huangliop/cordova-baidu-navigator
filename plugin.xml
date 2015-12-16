@@ -17,7 +17,7 @@
     </engines>
 
     <js-module src="www/navigatorPlugin.js" name="NavigatorPlugin">
-            <clobbers target="plugins.baidNavigator"/>
+            <clobbers target="plugins.baiduNavigator"/>
     </js-module>
 
     <!-- android -->
@@ -26,8 +26,8 @@
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="NavigatorPlugin">
                 <param name="android-package" value="cn.baidu.navigator.Navigator"/>
+                <param name="onload" value="true" />
             </feature>
-            <param name="onload" value="true" />
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest">

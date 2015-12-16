@@ -6,7 +6,7 @@ module.exports = {
             return;
         }
         
-        exec(success, error, "plugins.baidNavigator", "startNavi"
+        exec(success, error, "NavigatorPlugin", "startNavi"
              , [start.lat,start.lon,start.des?start.des:""
                 ,end.lat,end.lon,end.des?end.des:""]);
     }
