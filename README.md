@@ -17,9 +17,9 @@
                         lon:107.32, //起始点的经度
                         des:"终点"
                     },function(){
-                        console.log("success")
-                    },function(e){
-                        console.log(e)
+                        //启动导航成功
+                    },function(error){ //启动导航发生错误
+                        console.log(error)
                     }) 
     } 
  ```
