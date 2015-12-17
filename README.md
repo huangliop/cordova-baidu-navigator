@@ -2,10 +2,10 @@
 百度导航的cordova插件
   这是集成百度导航3.0的Cordova插件
   
-  ###安装插件:
+###安装插件:
     cordova plugin add https://github.com/huangliop/cordova-baidu-navigator.git --variable API_KEY=your_apiKey
   
-  ###使用方法: 
+###使用方法: 
 ```javascript
     if(cordova){
         window.plugins.baiduNavigator.startNavi({
