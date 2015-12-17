@@ -15,7 +15,7 @@ import org.apache.cordova.CordovaWebView;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.lang.Exception;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,42 +25,53 @@ import java.util.List;
 public class Navigator extends CordovaPlugin {
     private  static final String TAG="BaiduNavigator";
     public static final String ROUTE_PLAN_NODE = "routePlanNode";
+    private static final String APP_FOLDER_NAME = "BaiduNavigator";
+    private String mSDCardPath;
 
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
-        BaiduNaviManager.getInstance().init(cordova.getActivity(), getSdcardDir(), null, new BaiduNaviManager.NaviInitListener() {
+        if(initDirs()){
+            initNavi();
+        }
+    }
+    private void initNavi(){
+
+        BaiduNaviManager.getInstance().init(cordova.getActivity(), mSDCardPath, null, new BaiduNaviManager.NaviInitListener() {
             @Override
             public void onAuthResult(int i, String s) {
-                String m="";
+                String m = "";
                 if (0 == i) {
-                    m = "key校验成功!";
+                    m = "key楠岃瘉鎴愬姛";
                 } else {
-                    m = "key校验失败, " + s;
+                    m = "key楠岃瘉澶辫触" + s;
                 }
-                Log.d(TAG,m);
+                Log.d(TAG, m);
             }
 
             @Override
             public void initStart() {
-                Log.d(TAG,"Init Start.....");
+                Log.d(TAG, "Init Start.....");
             }
 
             @Override
             public void initSuccess() {
-                Log.d(TAG,"Init Success");
+                Log.d(TAG, "Init Success");
             }
 
             @Override
             public void initFailed() {
-                Log.d(TAG,"Init Failed");
+                Log.d(TAG, "Init Failed");
             }
-        },null);
+        }, null);
+
     }
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+
         if(action.equals("startNavi")) {
+
             double startLat, startLon, endLat, endLon;
             String startAddress, endAddress;
             try{
@@ -83,14 +94,30 @@ public class Navigator extends CordovaPlugin {
             list.add(sNode);
             list.add(new BNRoutePlanNode(endLon, endLat, endAddress, null, BNRoutePlanNode.CoordinateType.BD09LL));
             BaiduNaviManager.getInstance().launchNavigator(cordova.getActivity(),list,1,true,new MyRoutePlanListener(sNode));
-
+            return true;
         }
         return super.execute(action, args, callbackContext);
     }
+    private boolean initDirs() {
+        mSDCardPath = getSdcardDir();
+        if (mSDCardPath == null) {
+            return false;
+        }
+        File f = new File(mSDCardPath, APP_FOLDER_NAME);
+        if (!f.exists()) {
+            try {
+                f.mkdir();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     private String getSdcardDir() {
-        if (Environment.getExternalStorageState().equalsIgnoreCase(
-                Environment.MEDIA_MOUNTED)) {
+        if (Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED)) {
             return Environment.getExternalStorageDirectory().toString();
         }
         return null;

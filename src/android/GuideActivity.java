@@ -44,6 +44,7 @@ public class GuideActivity extends Activity {
                 mBNRoutePlanNode = (BNRoutePlanNode) bundle.getSerializable(Navigator.ROUTE_PLAN_NODE);
             }
         }
+
     }
 
     @Override

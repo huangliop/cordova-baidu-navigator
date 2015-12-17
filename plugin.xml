@@ -60,7 +60,7 @@
            android:enabled="true"  
            android:process=":remote" />
             <activity android:name="cn.baidu.navigator.GuideActivity"
-                      android:exported="false">
+                       android:exported="false" android:theme="@android:style/Theme.Black.NoTitleBar">
             
             </activity>
        <meta-data android:name="com.baidu.lbsapi.API_KEY"  
@@ -70,13 +70,13 @@
         <!-- libs -->
         <source-file src="src/android/libs/BaiduLBS_Android.jar" target-dir="libs"/>
         <source-file src="src/android/libs/httpmime-4.1.2.jar" target-dir="libs"/>
-        <source-file src="src/android/libs/armeabi/libapp_BaiduNaviApplib.so" target-dir="libs/armeabi"/>
-        <source-file src="src/android/libs/armeabi/libapp_BaiduVIlib.so" target-dir="libs/armeabi"/>
-        <source-file src="src/android/libs/armeabi/libbd_etts.so" target-dir="libs/armeabi"/>
-        <source-file src="src/android/libs/armeabi/libbds.so" target-dir="libs/armeabi"/>
-        <source-file src="src/android/libs/armeabi/libBDSpeechDecoder_V1.so" target-dir="libs/armeabi"/>
-        <source-file src="src/android/libs/armeabi/libcurl.so" target-dir="libs/armeabi"/>
-        <source-file src="src/android/libs/armeabi/libgnustl_shared.so" target-dir="libs/armeabi"/>
+        <source-file src="src/android/libs/armeabi/libapp_BaiduNaviApplib.so" target-dir="libs/armeabi-v7a"/>
+        <source-file src="src/android/libs/armeabi/libapp_BaiduVIlib.so" target-dir="libs/armeabi-v7a"/>
+        <source-file src="src/android/libs/armeabi/libbd_etts.so" target-dir="libs/armeabi-v7a"/>
+        <source-file src="src/android/libs/armeabi/libbds.so" target-dir="libs/armeabi-v7a"/>
+        <source-file src="src/android/libs/armeabi/libBDSpeechDecoder_V1.so" target-dir="libs/armeabi-v7a"/>
+        <source-file src="src/android/libs/armeabi/libcurl.so" target-dir="libs/armeabi-v7a"/>
+        <source-file src="src/android/libs/armeabi/libgnustl_shared.so" target-dir="libs/armeabi-v7a"/>
         <!-- assets -->
         <source-file src="src/android/assets/BaiduNaviSDK_3.0.png" target-dir="assets"/>
         <source-file src="src/android/assets/BaiduNaviSDK_Resource_3.0.png" target-dir="assets"/>
