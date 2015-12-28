@@ -20,6 +20,111 @@
             <clobbers target="plugins.baiduNavigator"/>
     </js-module>
 
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Baidu">
+                <param name="ios-package" value="CDVBaiduNavi"/>
+                <param name="onload" value="true" />
+            </feature>
+            <!--preference name="BaiduAppKey" value="$BaiduAppKey"/-->
+            <preference name="Valid Architecutres" value="armv7,arm64"/>
+        </config-file>
+        
+        <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+            <array>
+                <dict>
+                    <key>Required background modes</key>
+                    <array>
+                       	<string>App plays audio or streams audio/video using AirPlay</string>
+                        <string>App registers for location updates</string>
+                    </array>
+                    <key>Supported interface orientations</key>
+                    <array>
+                        <string>Portrait (bottom home button)</string>
+                        <string>Portrait (top home button)</string>
+                        <string>Landscape (left home button)</string>
+                        <string>Landscape (right home button)</string>
+                    </array>
+                    <key>NSLocationAlwaysUsageDescription</key>
+                    <string>只有开启定位功能才能正常使用百度导航</string>
+                </dict>
+            </array>
+        </config-file>
+        <config-file target="*-Info.plist" parent="APP_KEY">
+            <string>$API_KEY</string>
+        </config-file>
+        
+        <!-- Plugin source code -->
+        <header-file src="src/ios/CDVBaiduNavi.h" />
+        <source-file src="src/ios/CDVBaiduNavi.m" />
+        <header-file src="src/ios/BaiduNaviViewController.h" />
+        <source-file src="src/ios/BaiduNaviViewController.m" />
+        
+        <!-- Baidu Official -->
+        <resource-file src="src/ios/libs/BaiduNaviSDK/baiduNaviSDK.bundle" />
+        <header-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/BaiduMobStat.h" />
+        <header-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/CDataScanner.h" compiler-flags="-fno-objc-arc"/>
+        <source-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/CDataScanner.m" compiler-flags="-fno-objc-arc"/>
+        <header-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/Experimental/CFilteringJSONSerializer.h" compiler-flags="-fno-objc-arc"/>
+        <source-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/Experimental/CFilteringJSONSerializer.m" compiler-flags="-fno-objc-arc"/>
+        <header-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/Experimental/CJSONDeserializer_BlocksExtensions.h" compiler-flags="-fno-objc-arc"/>
+        <source-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/Experimental/CJSONDeserializer_BlocksExtensions.m" compiler-flags="-fno-objc-arc"/>
+        <header-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/Experimental/CJSONSerialization.h" compiler-flags="-fno-objc-arc"/>
+        <source-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/Experimental/CJSONSerialization.m" compiler-flags="-fno-objc-arc"/>
+        <header-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/Experimental/CJSONSerializedData.h" compiler-flags="-fno-objc-arc"/>
+        <source-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/Experimental/CJSONSerializedData.m" compiler-flags="-fno-objc-arc"/>
+        <header-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/Extensions/CDataScanner_Extensions.h" compiler-flags="-fno-objc-arc"/>
+        <source-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/Extensions/CDataScanner_Extensions.m" compiler-flags="-fno-objc-arc"/>
+        <header-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/Extensions/NSCharacterSet_Extensions.h" compiler-flags="-fno-objc-arc"/>
+        <source-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/Extensions/NSCharacterSet_Extensions.m" compiler-flags="-fno-objc-arc"/>
+        <header-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/Extensions/NSDictionary_JSONExtensions.h" compiler-flags="-fno-objc-arc"/>
+        <source-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/Extensions/NSDictionary_JSONExtensions.m" compiler-flags="-fno-objc-arc"/>
+        <header-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/Extensions/NSScanner_Extensions.h" compiler-flags="-fno-objc-arc"/>
+        <source-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/Extensions/NSScanner_Extensions.m" compiler-flags="-fno-objc-arc"/>
+        <header-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/JSON/CJSONDataSerializer.h" compiler-flags="-fno-objc-arc"/>
+        <source-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/JSON/CJSONDataSerializer.m" compiler-flags="-fno-objc-arc"/>
+        <header-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/JSON/CJSONDeserializer.h" compiler-flags="-fno-objc-arc"/>
+        <source-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/JSON/CJSONDeserializer.m" compiler-flags="-fno-objc-arc"/>
+        <header-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/JSON/CJSONScanner.h" compiler-flags="-fno-objc-arc"/>
+        <source-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/JSON/CJSONScanner.m" compiler-flags="-fno-objc-arc"/>
+        <header-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/JSON/CJSONSerializer.h" compiler-flags="-fno-objc-arc"/>
+        <source-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/JSON/CJSONSerializer.m" compiler-flags="-fno-objc-arc"/>
+        <header-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/JSON/CSerializedJSONData.h" compiler-flags="-fno-objc-arc"/>
+        <source-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/JSON/CSerializedJSONData.m" compiler-flags="-fno-objc-arc"/>
+        <header-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/TouchJSON/JSON/JSONRepresentation.h" compiler-flags="-fno-objc-arc"/>
+        <header-file src="src/ios/libs/BaiduNaviSDK/inc/BNCommonDef.h" />
+        <header-file src="src/ios/libs/BaiduNaviSDK/inc/BNCoreServices.h" />
+        <header-file src="src/ios/libs/BaiduNaviSDK/inc/BNLocation.h" />
+        <header-file src="src/ios/libs/BaiduNaviSDK/inc/BNLocationManagerProtocol.h" />
+        <header-file src="src/ios/libs/BaiduNaviSDK/inc/BNRoutePlanManagerProtocol.h" />
+        <header-file src="src/ios/libs/BaiduNaviSDK/inc/BNRoutePlanModel.h" />
+        <header-file src="src/ios/libs/BaiduNaviSDK/inc/BNStrategyManagerProtocol.h" />
+        <header-file src="src/ios/libs/BaiduNaviSDK/inc/BNUIManagerProtocol.h" />
+        
+        
+        <!-- Other required frameworks -->
+        <framework src="AudioToolbox.framework" />
+        <framework src="ImageIO.framework" />
+        <framework src="CoreMotion.framework" />
+        <framework src="CoreLocation.framework" />
+        <framework src="CoreTelephony.framework" />
+        <framework src="MediaPlayer.framework" />
+        <framework src="AVFoundation.framework" />
+        <framework src="SystemConfiguration.framework" />
+        <framework src="libstdc++.6.0.9.dylib" />
+        
+        <!--framework src="AssetsLibrary.framework" /-->
+        <!--framework src="CoreLocation.framework" /-->
+        <!--framework src="CoreGraphics.framework" /-->
+        <!--framework src="MobileCoreServices.framework" /-->
+        <!--source-file src="src/ios/libs/libstdc++.6.0.9.dylib" framework="true" /-->
+        <source-file src="src/ios/libs/BaiduNaviSDK/libbaiduNaviSDK.a" framework="true" />
+        <source-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/BaiduMobStat.a" framework="true" />
+        <source-file src="src/ios/libs/BaiduNaviSDK/BaiduStatistics/libBaiduMobStatForSDK.a" framework="true" />
+    </platform>
+    
     <!-- android -->
     <platform name="android"> 
     

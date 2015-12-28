@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 198
+/app/search/lbs-navi/!svn/ver/32119/branches/app/navisdk/ios/lbs-navi_4-3-15_BRANCH/app/naviapp/baidu-navi/ios/baiduNaviSDK/baiduNaviSDK/src/BNStatisticsModule/BaiduStatistics/TouchJSON/Experimental
+END
+CFilteringJSONSerializer.h
+K 25
+svn:wc:ra_dav:version-url
+V 225
+/app/search/lbs-navi/!svn/ver/32119/branches/app/navisdk/ios/lbs-navi_4-3-15_BRANCH/app/naviapp/baidu-navi/ios/baiduNaviSDK/baiduNaviSDK/src/BNStatisticsModule/BaiduStatistics/TouchJSON/Experimental/CFilteringJSONSerializer.h
+END
+CJSONSerialization.h
+K 25
+svn:wc:ra_dav:version-url
+V 219
+/app/search/lbs-navi/!svn/ver/32119/branches/app/navisdk/ios/lbs-navi_4-3-15_BRANCH/app/naviapp/baidu-navi/ios/baiduNaviSDK/baiduNaviSDK/src/BNStatisticsModule/BaiduStatistics/TouchJSON/Experimental/CJSONSerialization.h
+END
+CJSONDeserializer_BlocksExtensions.h
+K 25
+svn:wc:ra_dav:version-url
+V 235
+/app/search/lbs-navi/!svn/ver/32119/branches/app/navisdk/ios/lbs-navi_4-3-15_BRANCH/app/naviapp/baidu-navi/ios/baiduNaviSDK/baiduNaviSDK/src/BNStatisticsModule/BaiduStatistics/TouchJSON/Experimental/CJSONDeserializer_BlocksExtensions.h
+END
+CFilteringJSONSerializer.m
+K 25
+svn:wc:ra_dav:version-url
+V 225
+/app/search/lbs-navi/!svn/ver/32119/branches/app/navisdk/ios/lbs-navi_4-3-15_BRANCH/app/naviapp/baidu-navi/ios/baiduNaviSDK/baiduNaviSDK/src/BNStatisticsModule/BaiduStatistics/TouchJSON/Experimental/CFilteringJSONSerializer.m
+END
+CJSONSerialization.m
+K 25
+svn:wc:ra_dav:version-url
+V 219
+/app/search/lbs-navi/!svn/ver/32119/branches/app/navisdk/ios/lbs-navi_4-3-15_BRANCH/app/naviapp/baidu-navi/ios/baiduNaviSDK/baiduNaviSDK/src/BNStatisticsModule/BaiduStatistics/TouchJSON/Experimental/CJSONSerialization.m
+END
+CJSONDeserializer_BlocksExtensions.m
+K 25
+svn:wc:ra_dav:version-url
+V 235
+/app/search/lbs-navi/!svn/ver/32119/branches/app/navisdk/ios/lbs-navi_4-3-15_BRANCH/app/naviapp/baidu-navi/ios/baiduNaviSDK/baiduNaviSDK/src/BNStatisticsModule/BaiduStatistics/TouchJSON/Experimental/CJSONDeserializer_BlocksExtensions.m
+END
+CJSONSerializedData.h
+K 25
+svn:wc:ra_dav:version-url
+V 220
+/app/search/lbs-navi/!svn/ver/32119/branches/app/navisdk/ios/lbs-navi_4-3-15_BRANCH/app/naviapp/baidu-navi/ios/baiduNaviSDK/baiduNaviSDK/src/BNStatisticsModule/BaiduStatistics/TouchJSON/Experimental/CJSONSerializedData.h
+END
+CJSONSerializedData.m
+K 25
+svn:wc:ra_dav:version-url
+V 220
+/app/search/lbs-navi/!svn/ver/32119/branches/app/navisdk/ios/lbs-navi_4-3-15_BRANCH/app/naviapp/baidu-navi/ios/baiduNaviSDK/baiduNaviSDK/src/BNStatisticsModule/BaiduStatistics/TouchJSON/Experimental/CJSONSerializedData.m
+END
