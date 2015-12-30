@@ -6,7 +6,7 @@
 ###Android安装插件:
     cordova plugin add https://github.com/huangliop/cordova-baidu-navigator.git --variable API_KEY_IOS=your_ios-apiKey --variable API_KEY_ANDROID=your_android_apiKey
 
-###iOS安装插件:
+###iOS安装插件: 执行过程中如有报错,请在命令行前面加 sudo
     1 cordova plugin add https://github.com/huangliop/cordova-baidu-navigator.git --variable API_KEY_IOS=your_ios-apiKey --variable API_KEY_ANDROID=your_android_apiKey
     2 chmod +x plugins/cordova-baidu-navigator/scripts/before_plugin_install.sh
     3 cordova platform add ios  //ios安装时,这个必须在添加插件之后进行.
