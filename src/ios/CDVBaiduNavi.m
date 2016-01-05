@@ -55,6 +55,8 @@
     BaiduNaviViewController *childView = [BaiduNaviViewController new];
     [self.viewController addChildViewController:childView];
     [childView startNavi:startNode andEndNode:endNode];
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
+    [self endForExec];
 }
 
 
