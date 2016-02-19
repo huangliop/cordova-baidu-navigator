@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.baidu.navisdk.adapter.BNRoutePlanNode;
 import com.baidu.navisdk.adapter.BaiduNaviManager;
@@ -27,7 +28,8 @@ public class Navigator extends CordovaPlugin {
     public static final String ROUTE_PLAN_NODE = "routePlanNode";
     private static final String APP_FOLDER_NAME = "BaiduNavigator";
     private String mSDCardPath;
-	private CallbackContext callbackContext;
+    //是否正在计算线路
+    private boolean isPlanRoute=false;
 
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -70,9 +72,9 @@ public class Navigator extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-		
+
         if(action.equals("startNavi")) {
-			this.callbackContext=callbackContext;
+
             double startLat, startLon, endLat, endLon;
             String startAddress, endAddress;
             try{
@@ -86,15 +88,18 @@ public class Navigator extends CordovaPlugin {
                 callbackContext.error("Parameters type error");
                 return true;
             }
-
+            Toast.makeText(cordova.getActivity(),"线路规划中...",Toast.LENGTH_SHORT).show();
+            if(isPlanRoute)return true;
+            isPlanRoute=true;
             if (startAddress.equals("null")) startAddress = "";
             if (endAddress.equals("null")) endAddress = "";
 
             List<BNRoutePlanNode> list=new ArrayList<BNRoutePlanNode>();
-            BNRoutePlanNode sNode=new BNRoutePlanNode(startLon,startLat,startAddress,null ,BNRoutePlanNode.CoordinateType.BD09LL);
+            BNRoutePlanNode sNode=new BNRoutePlanNode(startLon,startLat,startAddress,startAddress ,BNRoutePlanNode.CoordinateType.BD09LL);
             list.add(sNode);
-            list.add(new BNRoutePlanNode(endLon, endLat, endAddress, null, BNRoutePlanNode.CoordinateType.BD09LL));
-            BaiduNaviManager.getInstance().launchNavigator(cordova.getActivity(),list,1,true,new MyRoutePlanListener(sNode));
+            list.add(new BNRoutePlanNode(endLon, endLat, endAddress, endAddress, BNRoutePlanNode.CoordinateType.BD09LL));
+            BaiduNaviManager.getInstance().launchNavigator(cordova.getActivity(), list, 1, true, new MyRoutePlanListener(sNode));
+            callbackContext.success();
             return true;
         }
         return super.execute(action, args, callbackContext);
@@ -116,7 +121,6 @@ public class Navigator extends CordovaPlugin {
         return true;
     }
 
-
     private String getSdcardDir() {
         if (Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED)) {
             return Environment.getExternalStorageDirectory().toString();
@@ -133,17 +137,19 @@ public class Navigator extends CordovaPlugin {
 
         @Override
         public void onJumpToNavigator() {
+            isPlanRoute=false;
+            Toast.makeText(cordova.getActivity(),"规划成功",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(cordova.getActivity(), GuideActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable(ROUTE_PLAN_NODE,mBNRoutePlanNode);
             intent.putExtras(bundle);
             cordova.getActivity().startActivity(intent);
-			callbackContext.success();
         }
         @Override
         public void onRoutePlanFailed() {
             // TODO Auto-generated method stub
-
+            isPlanRoute=false;
+            Toast.makeText(cordova.getActivity(),"线路规划失败",Toast.LENGTH_SHORT).show();
         }
     }
 }
