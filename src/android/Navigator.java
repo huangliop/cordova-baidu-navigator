@@ -3,6 +3,7 @@ package cn.baidu.navigator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -66,10 +67,11 @@ public class Navigator extends CordovaPlugin {
             public void initFailed() {
                 Log.d(TAG, "Init Failed");
             }
-        }, null);
+        }, null,myHandler,null);
 
     }
 
+    private final MyHandler myHandler=new MyHandler();
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
@@ -94,11 +96,16 @@ public class Navigator extends CordovaPlugin {
             if (startAddress.equals("null")) startAddress = "";
             if (endAddress.equals("null")) endAddress = "";
 
-            List<BNRoutePlanNode> list=new ArrayList<BNRoutePlanNode>();
-            BNRoutePlanNode sNode=new BNRoutePlanNode(startLon,startLat,startAddress,startAddress ,BNRoutePlanNode.CoordinateType.BD09LL);
+            final List<BNRoutePlanNode> list=new ArrayList<BNRoutePlanNode>();
+            final BNRoutePlanNode sNode=new BNRoutePlanNode(startLon,startLat,startAddress,startAddress ,BNRoutePlanNode.CoordinateType.BD09LL);
             list.add(sNode);
             list.add(new BNRoutePlanNode(endLon, endLat, endAddress, endAddress, BNRoutePlanNode.CoordinateType.BD09LL));
-            BaiduNaviManager.getInstance().launchNavigator(cordova.getActivity(), list, 1, true, new MyRoutePlanListener(sNode));
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    BaiduNaviManager.getInstance().launchNavigator(cordova.getActivity(), list, 1, true, new MyRoutePlanListener(sNode));
+                }
+            });
             callbackContext.success();
             return true;
         }
@@ -126,6 +133,10 @@ public class Navigator extends CordovaPlugin {
             return Environment.getExternalStorageDirectory().toString();
         }
         return null;
+    }
+
+    private static class MyHandler extends android.os.Handler{
+
     }
 
     public class MyRoutePlanListener implements BaiduNaviManager.RoutePlanListener {
