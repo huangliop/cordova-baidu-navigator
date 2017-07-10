@@ -4,6 +4,8 @@
 
 集成`android`百度导航`3.3.0`  `iOS`百度导航`2.0.5`
 
+*Android中，百度语音需要去[这里](http://yuyin.baidu.com/app)开通地图App的权限*
+
 ## 由于导航包比较大,下载时间较长请耐心等待
   
 ### Android安装插件
@@ -19,7 +21,7 @@
   
 ### 使用方法
 
-```javascript
+``` javascript
     if(cordova){
         window.plugins.baiduNavigator.startNavi({
                         lat:32.432,  //起始点的纬度

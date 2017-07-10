@@ -193,8 +193,8 @@
         <source-file src="src/android/libs/armeabi/libgnustl_shared.so" target-dir="libs/armeabi-v7a"/>
         <source-file src="src/android/libs/armeabi/liblocnaviSDK.so" target-dir="libs/armeabi-v7a"/>
         <!-- assets -->
-        <source-file src="src/android/assets/BaiduNaviSDK_3.0.png" target-dir="assets"/>
-        <source-file src="src/android/assets/BaiduNaviSDK_Resource_3.0.png" target-dir="assets"/>
+        <source-file src="src/android/assets/BaiduNaviSDK_3.3.0.png" target-dir="assets"/>
+        <source-file src="src/android/assets/BaiduNaviSDK_Resource_3.3.0.png" target-dir="assets"/>
         <source-file src="src/android/assets/channel" target-dir="assets"/>
           
         <!--source code-->
