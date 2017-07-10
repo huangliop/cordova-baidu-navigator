@@ -12,6 +12,7 @@
 
     <preference name="API_KEY_ANDROID" />
     <preference name="API_KEY_IOS" />
+    <preference name="TTS_KEY_ANDROID"/>
     <engines>
         <engine name="cordova" version=">=3.0"/>
     </engines>
