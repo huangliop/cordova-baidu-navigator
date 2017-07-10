@@ -139,7 +139,7 @@ public class Navigator extends CordovaPlugin {
         try
         {
             ApplicationInfo appInfo = this.cordova.getActivity().getPackageManager().getApplicationInfo(this.cordova.getActivity().getPackageName(), PackageManager.GET_META_DATA);
-            String ttsAppId=appInfo.metaData.getString("TTS_KEY_ANDROID");
+            String ttsAppId=appInfo.metaData.getInt("TTS_KEY_ANDROID") + "";
             if(ttsAppId != null)
             {
                 // 必须设置APPID，否则会静音
