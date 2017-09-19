@@ -1,0 +1,22 @@
+{
+  "name": "cordova-baidu-navigator",
+  "version": "1.1.1",
+  "description": "Cordova Alipay", 
+  "cordova": {
+    "id": "cordova-baidu-navigator",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "keywords": [
+    "cordova"
+  ],  
+  "engines": {
+    "cordovaDependencies": {
+      "5.0.0": {
+        "cordova": ">100"
+      }
+    }
+  }
+}
