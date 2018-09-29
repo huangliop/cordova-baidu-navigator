@@ -1,13 +1,19 @@
 package cn.baidu.navigator;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.baidu.navisdk.adapter.BNCommonSettingParam;
+import com.baidu.navisdk.adapter.BNOuterTTSPlayerCallback;
 import com.baidu.navisdk.adapter.BNRoutePlanNode;
+import com.baidu.navisdk.adapter.BNaviSettingManager;
 import com.baidu.navisdk.adapter.BaiduNaviManager;
 
 import org.apache.cordova.CallbackContext;
@@ -31,6 +37,12 @@ public class Navigator extends CordovaPlugin {
     private String mSDCardPath;
     //是否正在计算线路
     private boolean isPlanRoute=false;
+    private final String authBaseArr[] =
+            { Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION };
+    private final String authComArr[] = { Manifest.permission.READ_PHONE_STATE };
+    private final int authBaseRequestCode = 1;
+    private final int authComRequestCode = 2;
+
 
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -39,9 +51,35 @@ public class Navigator extends CordovaPlugin {
             initNavi();
         }
     }
+
+    private boolean hasBasePhoneAuth() {
+        // TODO Auto-generated method stub
+
+        PackageManager pm = cordova.getActivity().getPackageManager();
+        for (String auth : authBaseArr) {
+            if (pm.checkPermission(auth, cordova.getActivity().getPackageName()) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void initNavi(){
 
-        BaiduNaviManager.getInstance().init(cordova.getActivity(), mSDCardPath, null, new BaiduNaviManager.NaviInitListener() {
+        BNOuterTTSPlayerCallback ttsCallback = null;
+
+        // 申请权限
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+
+            if (!hasBasePhoneAuth()) {
+
+                this.cordova.getActivity().requestPermissions(authBaseArr, authBaseRequestCode);
+                return;
+
+            }
+        }
+
+        BaiduNaviManager.getInstance().init(cordova.getActivity(), mSDCardPath, APP_FOLDER_NAME, new BaiduNaviManager.NaviInitListener() {
             @Override
             public void onAuthResult(int i, String s) {
                 String m = "";
@@ -61,14 +99,59 @@ public class Navigator extends CordovaPlugin {
             @Override
             public void initSuccess() {
                 Log.d(TAG, "Init Success");
+                initSetting();
             }
 
             @Override
             public void initFailed() {
                 Log.d(TAG, "Init Failed");
             }
-        }, null,myHandler,null);
+        }, null,myHandler,ttsPlayStateListener);
 
+    }
+
+    /**
+     * 内部TTS播报状态回调接口
+     */
+    private BaiduNaviManager.TTSPlayStateListener ttsPlayStateListener = new BaiduNaviManager.TTSPlayStateListener() {
+
+        @Override
+        public void playEnd() {
+            // showToastMsg("TTSPlayStateListener : TTS play end");
+        }
+
+        @Override
+        public void playStart() {
+            // showToastMsg("TTSPlayStateListener : TTS play start");
+        }
+    };
+
+    private void initSetting() {
+        // BNaviSettingManager.setDayNightMode(BNaviSettingManager.DayNightMode.DAY_NIGHT_MODE_DAY);
+        BNaviSettingManager
+                .setShowTotalRoadConditionBar(BNaviSettingManager.PreViewRoadCondition.ROAD_CONDITION_BAR_SHOW_ON);
+        BNaviSettingManager.setVoiceMode(BNaviSettingManager.VoiceMode.Veteran);
+        // BNaviSettingManager.setPowerSaveMode(BNaviSettingManager.PowerSaveMode.DISABLE_MODE);
+        BNaviSettingManager.setRealRoadCondition(BNaviSettingManager.RealRoadCondition.NAVI_ITS_ON);
+        BNaviSettingManager.setIsAutoQuitWhenArrived(true);
+        Bundle bundle = new Bundle();
+
+        try
+        {
+            ApplicationInfo appInfo = this.cordova.getActivity().getPackageManager().getApplicationInfo(this.cordova.getActivity().getPackageName(), PackageManager.GET_META_DATA);
+            String ttsAppId=appInfo.metaData.getInt("TTS_KEY_ANDROID") + "";
+            if(ttsAppId != null)
+            {
+                // 必须设置APPID，否则会静音
+                bundle.putString(BNCommonSettingParam.TTS_APP_ID, ttsAppId);
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        BNaviSettingManager.setNaviSdkParam(bundle);
     }
 
     private final MyHandler myHandler=new MyHandler();
