@@ -13,6 +13,7 @@
     cordova plugin add https://github.com/huangliop/cordova-baidu-navigator.git --variable API_KEY_IOS=your_ios-apiKey --variable API_KEY_ANDROID=your_android_apiKey --variable TTS_KEY_ANDROID=your_android_tts_appid
 
 ### iOS安装插件
+
 执行过程中如有报错,请在命令行前面加 sudo
 
     $ cordova plugin add https://github.com/huangliop/cordova-baidu-navigator.git --variable API_KEY_IOS=your_ios-apiKey --variable API_KEY_ANDROID=your_android_apiKey --variable TTS_KEY_ANDROID=your_android_tts_appid
@@ -21,19 +22,6 @@
   
 ### 使用方法
 
-``` javascript
-    集成android百度导航3.0  iOS百度导航2.0.5
-## 由于导航包比较大,下载时间较长请耐心等待.
-  
-### Android安装插件:
-    cordova plugin add https://github.com/huangliop/cordova-baidu-navigator.git --variable API_KEY_IOS=your_ios-apiKey --variable API_KEY_ANDROID=your_android_apiKey
-
-### iOS安装插件: 执行过程中如有报错,请在命令行前面加 sudo
-    1 cordova plugin add https://github.com/huangliop/cordova-baidu-navigator.git --variable API_KEY_IOS=your_ios-apiKey --variable API_KEY_ANDROID=your_android_apiKey
-    2 chmod +x plugins/cordova-baidu-navigator/scripts/before_plugin_install.sh
-    3 cordova platform add ios  //ios安装时,这个必须在添加插件之后进行.
-  
-### 使用方法: 
 ```javascript
     if(cordova){
         window.plugins.baiduNavigator.startNavi({
